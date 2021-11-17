@@ -13,16 +13,50 @@
 # def isBadVersion(version):
 
 class Solution:
-    def firstBadVersion(self, n: int) -> int:
-        return self.firstBadVersionBinarySearch(n)
-    
-    def firstBadVersionBinarySearch(self, n: int) -> int:
-        def helper(start: int, end: int) -> int:
-            mid = (end-start)//2 + start
-            if isBadVersion(start):
-                return start
-            elif isBadVersion(mid):
-                return helper(start, mid)
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return self.firstBadVersionIterative(n)
+
+    # Time Complexity: O(log n)
+    # Space Complexity: O(1)
+    def firstBadVersionIterative(self, n):
+        lower = 0
+        upper = n
+        firstBadVersion = 0
+
+        while lower <= upper:
+            mid = lower + ((upper - lower) // 2)
+            is_lower_bad = isBadVersion(lower)
+            if is_lower_bad:
+                return lower
             else:
-                return helper(mid+1, end)
-        return helper(1, n)
+                is_mid_bad = isBadVersion(mid)
+                if is_mid_bad:
+                    firstBadVersion = mid
+                    upper = mid - 1
+                else:
+                    lower = mid + 1
+
+        return firstBadVersion
+
+    # Time Complexity: O(log n)
+    # Space Complexity: O(1)
+    def firstBadVersionRecurive(self, n):
+        def helper(lower: int, upper: int):
+            mid = lower + ((upper - lower) // 2)
+
+            is_lower_bad = isBadVersion(lower)
+
+            if is_lower_bad:
+                return lower
+            else:
+                is_mid_bad = isBadVersion(mid)
+                if is_mid_bad:
+                    return helper(lower, mid - 1)
+                else:
+                    return helper(mid + 1, upper)
+
+        return helper(0, n)
