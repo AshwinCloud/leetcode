@@ -8,12 +8,14 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         self.moveZeroesTwoPointers(nums)
-    
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
     def moveZeroesTwoPointers(self, nums: List[int]) -> None:
-        index = -1
-        for i in range(len(nums)):
-            if nums[i] == 0 and index == -1:
-                index = i
-            elif nums[i] != 0 and index != -1:                    
-                nums[index], nums[i] = nums[i], nums[index]
-                index += 1
+        non_zero_index = 0
+        i = 0
+        while i < len(nums):
+            if nums[i] != 0:
+                nums[i], nums[non_zero_index] = nums[non_zero_index], nums[i]
+                non_zero_index += 1
+            i += 1
