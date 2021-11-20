@@ -9,7 +9,9 @@
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         return self.removeNthFromEndOnePass(head, n)
-    
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
     def removeNthFromEndTwoPass(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         def size(head: Optional[ListNode]) -> int:
             if not head:
@@ -38,15 +40,14 @@ class Solution:
             current.next = current.next.next
             
             return head
-    
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
     def removeNthFromEndOnePass(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         if not head:
             return None
-        elif not head.next:
-            if n == 1:
-                return None
-            else:
-                return head
+        elif not head.next and n == 1:
+            return None
         else:
             p1 = p2 = head
             i = 0
