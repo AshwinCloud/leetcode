@@ -8,6 +8,8 @@ class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         return self.maxAreaOfIslandDFS(grid)
 
+    # Time Complexity: O(n^2)
+    # Space Complexity: 0(1)
     def maxAreaOfIslandDFS(self, grid: List[List[int]]) -> int:
         def helper(grid: List[List[int]], sr: int, sc: int) -> int:
             area = 0
