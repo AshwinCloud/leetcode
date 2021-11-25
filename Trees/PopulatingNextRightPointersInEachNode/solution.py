@@ -16,6 +16,37 @@ class Solution:
     def connect(self, root: 'Node') -> 'Node':
         return self.connectWithConstantSpace(root)
 
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def connectWithConstantSpace(self, root: 'Node') -> 'Node':
+        parent = root
+
+        while parent:
+            first_child = current_child = None
+            while parent:
+                if parent.left:
+                    if not first_child:
+                        first_child = parent.left
+                    else:
+                        current_child.next = parent.left
+
+                    current_child = parent.left
+
+                if parent.right:
+                    if not first_child:
+                        first_child = parent.right
+                    else:
+                        current_child.next = parent.right
+
+                    current_child = parent.right
+
+                parent = parent.next
+            parent = first_child
+
+        return root
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(n)
     def connectWithQueue(self, root: 'Node') -> 'Node':
         if not root:
             return None
@@ -38,34 +69,5 @@ class Solution:
 
                 previous_node = node
                 previous_height = height
-
-        return root
-
-    def connectWithConstantSpace(self, root: 'Node') -> 'Node':
-        if not root:
-            return None
-        else:
-            parent = root
-            childhead = child = None
-
-            while parent:
-                while parent:
-                    if parent.left:
-                        if not childhead:
-                            childhead = parent.left
-                        else:
-                            child.next = parent.left
-                        child = parent.left
-
-                    if parent.right:
-                        if not childhead:
-                            childhead = parent.right
-                        else:
-                            child.next = parent.right
-                        child = parent.right
-                    parent = parent.next
-
-                parent = childhead
-                childhead = child = None
 
             return root
