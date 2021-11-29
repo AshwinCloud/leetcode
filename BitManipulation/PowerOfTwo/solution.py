@@ -6,5 +6,7 @@ class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
         return self.isPowerOfTwoBin(n)
 
+    # Time Complexity: O(1)
+    # Space Complexity: O(1)
     def isPowerOfTwoBin(self, n: int) -> bool:
         return n != 0 and (n & (n - 1)) == 0
