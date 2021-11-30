@@ -7,6 +7,8 @@ class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
         return self.minimumTotalDP(triangle)
 
+    # Time Complexity: O(n*n)
+    # Space Complexity: O(n)
     def minimumTotalDP(self, triangle: List[List[int]]) -> int:
         import sys
         num_rows = len(triangle)
