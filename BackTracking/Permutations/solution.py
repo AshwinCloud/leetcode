@@ -7,7 +7,7 @@ class Solution:
         return self.permuteDFS(nums)
 
     # Time Complexity: O(n!)
-    # Space Complexity: O(n!)
+    # Space Complexity: O(n!) for result, O(1) for additional space
     def permuteDFS(self, nums: List[int]) -> List[List[int]]:
         def backtrack(nums: List[int]):
             if len(nums) == 1:
