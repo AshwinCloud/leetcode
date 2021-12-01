@@ -5,25 +5,26 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
         return self.climbStairsMemoizationIterative(n)
-    
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(n)
     def climbStairsMemoizationRecursive(self, n: int) -> int:
-        def helper(n: int, memory) -> int:
+        def helper(n, memory) -> int:
             if memory.get(n):
                 return memory[n]
             else:
-                if n <= 2:
-                    memory = {0:0, 1:1, 2:2}
-                else:                    
-                    memory[n] = helper(n-1, memory) + helper(n-2, memory)
+                memory[n] = helper(n - 2, memory) + helper(n - 1, memory)
                 return memory[n]
-        return helper(n, {})
-    
+
+        memory = {0: 0, 1: 1, 2: 2}
+        return helper(n, memory)
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(n)
     def climbStairsMemoizationIterative(self, n: int) -> int:
-        memory = {0:0, 1:1, 2:2}
-        
-        i = 3
-        while i <= n:
-            memory[i] = memory[i-1] + memory[i-2]
-            i += 1
+        memory = {0: 0, 1: 1, 2: 2}
+
+        for i in range(3, n + 1):
+            memory[i] = memory[i - 1] + memory[i - 2]
 
         return memory[n]
