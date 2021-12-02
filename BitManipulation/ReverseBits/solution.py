@@ -5,11 +5,15 @@ class Solution:
     def reverseBits(self, n: int) -> int:
         return self.reverseBitsBin(n)
 
+    # Time Complexity: O(m) where m is the number of bits in n
+    # Space Complexity: O(1)
     def reverseBitsBin(self, n: int) -> int:
-        res = 0
+        num_bits = 32
+        reversed_n = 0
 
-        for i in range(32):
+        for i in range(num_bits):
             bit = (n >> i) & 1
-            res = res | (bit << (32 - i))
+            reversed_bit = bit << (num_bits - 1 - i)
+            reversed_n |= reversed_bit
 
-        return res
+        return reversed_n
