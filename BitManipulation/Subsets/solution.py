@@ -6,6 +6,8 @@ class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         return self.subsetsBitwise(nums)
 
+    # Time Complexity: O(2^n) where n is the length of nums
+    # Space Complexity: O(2^n) where n is the length of nums
     def subsetsBitwise(self, nums: List[int]) -> List[List[int]]:
         subsets = []
         n = 1 << len(nums)
