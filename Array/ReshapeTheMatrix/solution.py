@@ -10,11 +10,11 @@
 # output the new reshaped matrix; Otherwise, output the original matrix.
 class Solution:
     def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
-        return self.matrixReshapeDP1(mat, r, c)
+        return self.matrixReshape1(mat, r, c)
 
     # Time Complexity: O(m * n) where m is the number of rows and n is the number of columns in mat
     # Space Complexity: O(m * n) where m is the number of rows and n is the number of columns in mat
-    def matrixReshapeDP1(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
+    def matrixReshape1(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
         orig_r = len(mat)
         orig_c = len(mat[0])
 
@@ -37,7 +37,7 @@ class Solution:
 
     # Time Complexity: O(m * n) where m is the number of rows and n is the number of columns in mat
     # Space Complexity: O(m * n) where m is the number of rows and n is the number of columns in mat
-    def matrixReshapeDP2(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
+    def matrixReshape2(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
         orig_r = len(mat)
         orig_c = len(mat[0])
 
