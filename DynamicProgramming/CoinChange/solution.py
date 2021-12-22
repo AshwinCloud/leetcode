@@ -16,12 +16,9 @@ class Solution:
         dp = [math.inf] * (amount + 1)
         dp[0] = 0
 
-        coins.sort()
         for a in range(amount + 1):
             for coin in coins:
                 if a >= coin:
                     dp[a] = min(dp[a], 1 + dp[a - coin])
-                else:
-                    break
 
         return -1 if dp[amount] == math.inf else dp[amount]
