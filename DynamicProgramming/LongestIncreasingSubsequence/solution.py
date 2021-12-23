@@ -7,6 +7,8 @@ class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         return self.lengthOfLISBS(nums)
 
+    # Time Complexity: O(n * n)
+    # Space Complexity: O(n)
     def lengthOfLISDP(self, nums: List[int]) -> int:
         dp = [1] * len(nums)
 
@@ -17,6 +19,8 @@ class Solution:
 
         return max(dp)
 
+    # Time Complexity: O(nlogn)
+    # Space Complexity: O(n)
     def lengthOfLISBS(self, nums: List[int]) -> int:
         def binarySearch(bs_list: List[int], n: int) -> int:
             left = 0
