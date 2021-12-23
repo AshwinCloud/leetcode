@@ -16,6 +16,20 @@ class Solution:
         dp = [math.inf] * (amount + 1)
         dp[0] = 0
 
+        for a in range(amount + 1):
+            for coin in coins:
+                if a >= coin:
+                    dp[a] = min(dp[a], 1 + dp[a - coin])
+
+        return -1 if dp[amount] == math.inf else dp[amount]
+
+    # Time Complexity: O(n * m) + nlogn where n is the number of coins and m is the amount
+    # Space Complexity: O(m) where m is the amount
+    def coinChangeDPWithSort(self, coins: List[int], amount: int) -> int:
+        import math
+        dp = [math.inf] * (amount + 1)
+        dp[0] = 0
+
         coins.sort()
         for a in range(amount + 1):
             for coin in coins:
