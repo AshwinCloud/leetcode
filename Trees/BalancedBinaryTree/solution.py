@@ -13,9 +13,25 @@ class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         return self.isBalancedRecursive(root)
 
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def isBalancedRecursiveN(self, root: Optional[TreeNode]) -> bool:
+        def helper(root: Optional[TreeNode], isBalanced: bool = True) -> (bool, int):
+            if not root:
+                return (True, 0)
+            else:
+                lBalanced, lHeight = helper(root.left)
+                rBalanced, rHeight = helper(root.right)
+
+                isBalanced = lBalanced and rBalanced and -1 <= lHeight - rHeight <= 1
+                height = max(lHeight, rHeight) + 1
+                return (isBalanced, height)
+
+        return helper(root)[0]
+
     # Time Complexity: O(n ^ 2)
     # Space Complexity: O(1)
-    def isBalancedRecursive(self, root: Optional[TreeNode]) -> bool:
+    def isBalancedRecursiveNN(self, root: Optional[TreeNode]) -> bool:
         def height(root: Optional[TreeNode]) -> int:
             if not root:
                 return 0
