@@ -4,11 +4,26 @@
 #Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        return self.robDP(nums)
+        return self.robDP1(nums)
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def robDP1(self, nums: List[int]) -> int:
+        if len(nums) == 0:
+            return 0
+        elif len(nums) == 1:
+            return nums[0]
+        else:
+            dp_prev_prev, dp_prev = nums[0], max(nums[0], nums[1])
+
+            for i in range(2, len(nums)):
+                dp_prev_prev, dp_prev = dp_prev, max(dp_prev, dp_prev_prev + nums[i])
+
+            return dp_prev
 
     # Time Complexity: O(n)
     # Space Complexity: O(n)
-    def robDP(self, nums: List[int]) -> int:
+    def robDP2(self, nums: List[int]) -> int:
         if len(nums) == 0:
             return 0
         elif len(nums) == 1:
