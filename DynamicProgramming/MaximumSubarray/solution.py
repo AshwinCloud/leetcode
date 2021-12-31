@@ -5,7 +5,9 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         return self.maxSubArrayOnePass(nums)
-    
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
     def maxSubArrayOnePass(self, nums: List[int]) -> int:
         local_max_sum = nums[0]
         global_max_sum = nums[0]
