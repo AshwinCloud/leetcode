@@ -14,7 +14,7 @@ class Solution:
                 visited: List[List[bool]]) -> bool:
             if word_index >= len(word):
                 return True
-            elif (0 > board_row or \
+            elif (0 > board_row or
                   board_row >= len(board) or
                   0 > board_col or
                   board_col >= len(board[0]) or
