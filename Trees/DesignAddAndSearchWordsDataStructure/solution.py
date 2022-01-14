@@ -31,25 +31,51 @@ class WordDictionary:
     # Time Complexity: O(n) involving '.' and O(h) without involving '.' and at most h == n, so O(n)
     # Space Complexity: O(1)
     def search(self, word: str) -> bool:
-        def dfs(startIndex: int, word: str, root: TrieNode) -> bool:
-            current = root
+        def dfs(children, word: str, word_index: int) -> bool:
+            if word_index >= len(word):
+                return False
+            elif word[word_index] == '.':
+                for child in children.values():
+                    if word_index == len(word) - 1 and child.word:
+                        return True
 
-            for i in range(startIndex, len(word)):
-                c = word[i]
-
-                if c == '.':
-                    for child in current.children.values():
-                        if dfs(i + 1, word, child):
-                            return True
+                    if dfs(child.children, word, word_index + 1):
+                        return True
+            else:
+                c = word[word_index]
+                if c not in children:
                     return False
+                elif word_index == len(word) - 1:
+                    return children[c].word
                 else:
-                    if c in current.children:
-                        current = current.children[c]
-                    else:
-                        return False
-            return current.word
+                    return dfs(children[c].children, word, word_index + 1)
 
-        return dfs(0, word, self.root)
+            return False
+
+        return dfs(self.root.children, word, 0)
+
+        # Time Complexity: O(n) involving '.' and O(h) without involving '.' and at most h == n, so O(n)
+        # Space Complexity: O(1)
+        def search2(self, word: str) -> bool:
+            def dfs(startIndex: int, word: str, root: TrieNode) -> bool:
+                current = root
+
+                for i in range(startIndex, len(word)):
+                    c = word[i]
+
+                    if c == '.':
+                        for child in current.children.values():
+                            if dfs(i + 1, word, child):
+                                return True
+                        return False
+                    else:
+                        if c in current.children:
+                            current = current.children[c]
+                        else:
+                            return False
+                return current.word
+
+            return dfs(0, word, self.root)
 
 # Your WordDictionary object will be instantiated and called as such:
 # obj = WordDictionary()
