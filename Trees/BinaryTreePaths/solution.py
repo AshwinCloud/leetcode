@@ -10,51 +10,31 @@
 #         self.right = right
 class Solution:
     def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
-        return self.binaryTreePathsRecursive(root)
+        return self.binaryTreePathsList(root)
 
-    def binaryTreePathsRecursive(self, root: Optional[TreeNode]) -> List[str]:
-        def helper(curr_list: List[int], final_list: List[str], root: Optional[TreeNode]) -> List[str]:
+    # Time Complexity: O(n)
+    # Space Complexity: O(h * l) where h is the height of the tree and l is the number of leaf trees. O(n^2) at worst
+    def binaryTreePathsList(self, root: Optional[TreeNode]) -> List[str]:
+        def helper(root: Optional[TreeNode], curr_list: List[int] = [], final_list: List[str] = []) -> List[str]:
             if not root:
                 return final_list
             else:
                 curr_list.append(root.val)
 
-                if not root.left and not root.right:
-                    final_list.append(setToStr(curr_list))
-                elif root.left and not root.right:
-                    helper(curr_list, final_list, root.left)
-                elif not root.left and root.right:
-                    helper(curr_list, final_list, root.right)
-                else:
+                if root.left and root.right:
                     curr_list_copy = curr_list.copy()
-                    helper(curr_list, final_list, root.left)
-                    helper(curr_list_copy, final_list, root.right)
-
-                return final_list
-
-        def helper2(curr_str: str, final_list: List[str], root: Optional[TreeNode]) -> List[str]:
-            if not root:
-                return final_list
-            else:
-                if not curr_str:
-                    curr_str += str(root.val)
+                    helper(root.left, curr_list, final_list)
+                    helper(root.right, curr_list_copy, final_list)
+                elif root.left:
+                    helper(root.left, curr_list, final_list)
+                elif root.right:
+                    helper(root.right, curr_list, final_list)
                 else:
-                    curr_str += "->" + str(root.val)
-                if not root.left and not root.right:
-                    final_list.append(curr_str)
-                elif root.left and not root.right:
-                    helper2(curr_str, final_list, root.left)
-                elif not root.left and root.right:
-                    helper2(curr_str, final_list, root.right)
-                else:
-                    s1 = curr_str
-                    s2 = curr_str + ""
-                    helper2(s1, final_list, root.left)
-                    helper2(s2, final_list, root.right)
+                    final_list.append(listToStr(curr_list))
 
                 return final_list
 
-        def setToStr(l: List[int]) -> str:
+        def listToStr(l: List[int]) -> str:
             if not l:
                 return ""
             else:
@@ -63,8 +43,26 @@ class Solution:
                     s += "->" + str(l[i])
                 return s
 
-        # return helper([], [], root)
-        if not root:
-            return []
-        else:
-            return helper2("", [], root)
+        return helper(root)
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(h * l) where h is the height of the tree and l is the number of leaf trees. O(n^2) at worst
+    def binaryTreePathsString(self, root: Optional[TreeNode]) -> List[str]:
+        def helper(root: Optional[TreeNode], final_list: List[str] = [], curr_str: str = "") -> List[str]:
+            if not root:
+                return final_list
+            else:
+                if not curr_str:
+                    curr_str += str(root.val)
+                else:
+                    curr_str += "->" + str(root.val)
+
+                if not root.left and not root.right:
+                    final_list.append(curr_str)
+                else:
+                    helper(root.left, final_list, curr_str)
+                    helper(root.right, final_list, curr_str)
+
+                return final_list
+
+        return helper(root)
