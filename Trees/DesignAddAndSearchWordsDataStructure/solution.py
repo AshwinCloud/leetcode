@@ -9,7 +9,7 @@
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.word = False
+        self.is_word = False
 
 
 class WordDictionary:
@@ -24,29 +24,33 @@ class WordDictionary:
         for c in word:
             if c not in current.children:
                 current.children[c] = TrieNode()
-
             current = current.children[c]
-        current.word = True
+        current.is_word = True
 
     # Time Complexity: O(n) involving '.' and O(h) without involving '.' and at most h == n, so O(n)
     # Space Complexity: O(1)
     def search(self, word: str) -> bool:
         def dfs(children, word: str, word_index: int) -> bool:
-            if word_index >= len(word):
-                return False
-            elif word[word_index] == '.':
-                for child in children.values():
-                    if word_index == len(word) - 1 and child.word:
-                        return True
+            c = word[word_index]
 
-                    if dfs(child.children, word, word_index + 1):
-                        return True
+            if c == '.':
+                if len(children) == 0:
+                    return False
+                elif word_index == len(word) - 1:
+                    for child in children.values():
+                        if child.is_word:
+                            return True
+                    return False
+                else:
+                    for child in children.values():
+                        if dfs(child.children, word, word_index + 1):
+                            return True
+                    return False
             else:
-                c = word[word_index]
                 if c not in children:
                     return False
                 elif word_index == len(word) - 1:
-                    return children[c].word
+                    return children[c].is_word
                 else:
                     return dfs(children[c].children, word, word_index + 1)
 
