@@ -17,7 +17,7 @@ class Solution:
         return self.cloneGraphDFS(node)
 
     # Time Complexity: O(E + V) where E and V are the edges and vertices in the graph
-    # Space Complexity: O(V)
+    # Space Complexity: O(E + V)
     def cloneGraphDFS(self, node: 'Node') -> 'Node':
         def dfs(node: 'Node', oldToNewDict={}) -> 'Node':
             if node in oldToNewDict:
