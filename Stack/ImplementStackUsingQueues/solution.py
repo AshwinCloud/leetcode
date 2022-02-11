@@ -20,10 +20,12 @@ class MyStack:
 
     def __init__(self):
         self.q = []
+        self.topx = None
 
     # Time Complexity: O(n) where n is the size of q
     # Space Complexity: O(1)
     def push(self, x: int) -> None:
+        self.topx = x
         self.q.insert(0, x)
 
         sz = len(self.q)
@@ -34,12 +36,14 @@ class MyStack:
     # Time Complexity: O(1)
     # Space Complexity: O(1)
     def pop(self) -> int:
-        return self.q.pop()
+        x = self.q.pop()
+        self.topx = self.q[-1] if self.q else None
+        return x
 
     # Time Complexity: O(1)
     # Space Complexity: O(1)
     def top(self) -> int:
-        return self.q[len(self.q) - 1]
+        return self.topx
 
     # Time Complexity: O(1)
     # Space Complexity: O(1)
