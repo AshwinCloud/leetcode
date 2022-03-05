@@ -1,3 +1,4 @@
+# 136. Single Number
 # PROBLEM STATEMENT
 # https://leetcode.com/problems/single-number/
 # Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
@@ -14,6 +15,11 @@ class Solution:
             xor ^= n
 
         return xor
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def singleNumberMath(self, nums: List[int]) -> int:
+        return (2 * sum(set(nums)))- sum(nums)
 
     # Time Complexity: O(n)
     # Space Complexity: O(n)
