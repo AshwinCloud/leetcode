@@ -9,7 +9,7 @@ class Solution:
         """
         return self.setZeroesInPlace(matrix)
 
-    # Time Complexity: O(m * n)
+    # Time Complexity: O(m * n) where m and n are the rows and cols in matrix
     # Space Complexity: O(1)
     def setZeroesInPlace(self, matrix: List[List[int]]) -> None:
         rows, cols = len(matrix), len(matrix[0])
