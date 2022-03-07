@@ -8,40 +8,33 @@ class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         return self.productExceptSelfConstantSpace(nums)
 
-    # Time Complexity: O(n)
-    # Space Complexity: O(1)
+    # Time Complexity: O(n) where n is the size of nums
+    # Space Complexity: O(n) and O(1) with and without including the extra space for result
     def productExceptSelfConstantSpace(self, nums: List[int]) -> List[int]:
         result = [1] * len(nums)
 
-        prefix = 1
-        for i in range(len(nums)):
-            result[i] = prefix
-            prefix *= nums[i]
+        for i in range(1, len(nums)):
+            result[i] = nums[i - 1] * result[i - 1]
 
-        postfix = 1
+        rightProduct = 1
         for i in range(len(nums) - 1, -1, -1):
-            result[i] *= postfix
-            postfix *= nums[i]
+            result[i] = result[i] * rightProduct
+            rightProduct *= nums[i]
 
         return result
 
-    # Time Complexity: O(n)
-    # Space Complexity: O(n)
+    # Time Complexity: O(n) where n is the size of nums
+    # Space Complexity: O(n) with and without including the extra space for result
     def productExceptSelfArray(self, nums: List[int]) -> List[int]:
-        prefix = nums.copy()
-        postfix = nums.copy()
+        result, left, right = [1] * len(nums), [1] * len(nums), [1] * len(nums)
 
         for i in range(1, len(nums)):
-            prefix[i] = prefix[i - 1] * nums[i]
+            left[i] = nums[i - 1] * left[i - 1]
 
         for i in range(len(nums) - 2, -1, -1):
-            postfix[i] = postfix[i + 1] * nums[i]
+            right[i] = nums[i + 1] * right[i + 1]
 
-        output = [1] * len(nums)
-        output[0] = postfix[1]
-        output[len(nums) - 1] = prefix[len(nums) - 2]
+        for i in range(len(nums)):
+            result[i] = left[i] * right[i]
 
-        for i in range(1, len(nums) - 1):
-            output[i] = prefix[i - 1] * postfix[i + 1]
-
-        return output
+        return result
